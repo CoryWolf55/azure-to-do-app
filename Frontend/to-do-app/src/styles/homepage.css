@@ -1,0 +1,115 @@
+.home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2rem;
+    text-align: left;
+}
+
+.home-page h1 {
+    color: #5BBDA4;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.home-page p {
+    color: #5BBDA4;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    max-width: 600px;
+    margin-top: 0.35rem;
+}
+
+.task-box {
+    background-color: rgba(47, 69, 99, 0.8);
+    border-radius: 14px;
+    padding: 1.1rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 16px 30px rgba(28, 35, 68, 0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #408074;
+}
+
+.task-box-title {
+    color: #5BBDA4;
+    margin-bottom: 0.9rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.02em;
+}
+
+.task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.task-item {
+    background-color: rgba(19, 116, 161, 0.2);
+    border: 1px solid rgba(91, 189, 164, 0.35);
+    border-radius: 10px;
+    padding: 0.65rem 0.75rem;
+    cursor: grab;
+}
+
+.task-item:active {
+    cursor: grabbing;
+}
+
+.task-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.task-row input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: #408074;
+}
+
+.task-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    color: #5BBDA4;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+}
+
+.expand-icon {
+    color: #1374A1;
+    font-weight: 700;
+    margin-left: 0.6rem;
+}
+
+.task-details {
+    color: #5BBDA4;
+    font-size: 0.92rem;
+    margin-top: 0.6rem;
+    line-height: 1.45;
+    padding-left: 1.6rem;
+}
+
+.task-item.completed .task-title span:first-child {
+    text-decoration: line-through;
+    opacity: 0.75;
+}
+
+@media screen and (max-width: 768px) {
+    .home-page {
+        padding: 1rem;
+        text-align: left;
+    }
+
+    .task-box {
+        max-width: 100%;
+        margin-top: 1.5rem;
+    }
+}
