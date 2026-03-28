@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import "../styles/homepage.css";
 
 const initialTasks = [
@@ -28,6 +29,22 @@ const initialTasks = [
 function HomePage() {
     const [tasks, setTasks] = useState(initialTasks);
     const [draggedTaskId, setDraggedTaskId] = useState(null);
+
+
+    const fetchTasks = async () => {
+        try {
+        const response = await axios.get("https://localhost:5001/api/tasks");
+        setTasks(response.data);
+    } catch (error) {
+        console.error(error);
+        }
+    };
+
+    //Fetch tasks from API at startup
+    useEffect(() => {
+        fetchTasks();
+    }, []);
+
 
     const toggleExpanded = (id) => {
         setTasks((currentTasks) =>
