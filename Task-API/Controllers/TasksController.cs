@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Task_API.Models;
 using System.Linq;
+using Task_API.DTOs;
 
 namespace Task_API.Controllers
 {
@@ -15,7 +16,6 @@ namespace Task_API.Controllers
         /// 
         /// To-Do: (some will not be added due to the simplicity of the project, but are good to have in a real application)
         /// Add more functionality such as filtering tasks by completion status, due date, etc.
-        /// Need to add DTOs and validation for better data handling and error management.
         /// Rate Limiting and Authentication should be added for better security and performance.
         /// 
         ///</summary>
@@ -30,16 +30,40 @@ namespace Task_API.Controllers
             return Ok(tasks);
         }
 
-        [HttpPost]
-        public ActionResult<TaskItem> Create(TaskItem task)
+
+        [HttpGet("{id}")] // Get task by ID
+        public ActionResult<TaskReturnDTO> GetById(int id)
         {
-            task.Id = tasks.Count + 1; // Simple ID generation since im not using a database
-            tasks.Add(task);
-            return Ok();
+            var task = tasks.FirstOrDefault(t => t.Id == id);
+            if (task == null)
+            {
+                return NotFound();
+            }
+            return Ok(TaskMappingDTO.ToDTO(task));
         }
 
-        [HttpPut("{id}")] // Update task by ID, Only using ID in route for simplicity
-        public IActionResult Update(int id, TaskItem updatedTask)
+        [HttpPost("create")]
+        public ActionResult<TaskReturnDTO> Create(TaskCreateDTO taskDto)
+        {
+            // Map the incoming DTO to your Model
+            var newTask = new TaskItem
+            {
+                Id = tasks.Count > 0 ? tasks.Max(t => t.Id) + 1 : 1,
+                Title = taskDto.Title,
+                Description = taskDto.Description,
+                DueDate = taskDto.DueDate,
+                IsComplete = false // Default to false on creation
+            };
+
+            tasks.Add(newTask);
+
+            //var returnDto = TaskMappingDTO.ToDTO(newTask); #Removed due to the need for index in frontend
+
+            return Ok(newTask);
+        }
+
+        [HttpPut("update/{id}")] // Update task by ID, Only using ID in route for simplicity
+        public IActionResult Update(int id, bool IsComplete)
         {
             var task = tasks.FirstOrDefault(t => t.Id == id);
             if (task == null)
@@ -47,7 +71,8 @@ namespace Task_API.Controllers
                 return NotFound();
             }
 
-            task.IsComplete = updatedTask.IsComplete;
+            task.IsComplete = IsComplete;
+            Console.WriteLine("This is the task found" + task);
             return Ok();
         }
 
@@ -62,5 +87,6 @@ namespace Task_API.Controllers
             tasks.Remove(task);
             return Ok();
         }
+
     }
 }

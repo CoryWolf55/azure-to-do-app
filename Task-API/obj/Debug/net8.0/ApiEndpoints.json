@@ -21,21 +21,21 @@
   },
   {
     "ContainingType": "Task_API.Controllers.TasksController",
-    "Method": "Create",
-    "RelativePath": "Tasks",
-    "HttpMethod": "POST",
+    "Method": "GetById",
+    "RelativePath": "Tasks/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "task",
-        "Type": "Task_API.Models.TaskItem",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Task_API.Models.TaskItem",
+        "Type": "Task_API.DTOs.TaskReturnDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -44,27 +44,6 @@
         "StatusCode": 200
       }
     ]
-  },
-  {
-    "ContainingType": "Task_API.Controllers.TasksController",
-    "Method": "Update",
-    "RelativePath": "Tasks/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "updatedTask",
-        "Type": "Task_API.Models.TaskItem",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
   },
   {
     "ContainingType": "Task_API.Controllers.TasksController",
@@ -78,6 +57,53 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Task_API.Controllers.TasksController",
+    "Method": "Create",
+    "RelativePath": "Tasks/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskDto",
+        "Type": "Task_API.DTOs.TaskCreateDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Task_API.DTOs.TaskReturnDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Task_API.Controllers.TasksController",
+    "Method": "Update",
+    "RelativePath": "Tasks/update/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "IsComplete",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
